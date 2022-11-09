@@ -1,17 +1,29 @@
 class Solution:
     def findErrorNums(self, nums: List[int]) -> List[int]:
         n = len(nums)
-        s = set(nums)
-        miss = 0
+        xor = 0
         for i in range(1,n+1):
-            if i not in s:
-                miss = i
-                break
-        s = set()
+            xor^=i
         for val in nums:
-            if val in s:
-                rep = val
+            xor^=val
+        point = -1
+        for i in range(32):
+            if xor&1<<i > 0:
+                point = i
                 break
-            s.add(val)
-        return [rep,miss]
-       
+        one,zero = 0,0
+        for val in nums:
+            if val&1<<point > 0:
+                one ^= val
+            else:
+                zero ^= val
+        for val in range(1,n+1):
+            if val&1<<point > 0:
+                one ^= val
+            else:
+                zero ^= val
+        for val in nums:
+            if val == one:
+                return [one, zero]
+        return [zero, one]
+            
