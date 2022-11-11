@@ -3,18 +3,26 @@ class Solution:
         summ = sum(nums) // 2
         if sum(nums) % 2 != 0:
             return False
-        @cache
-        def rec(idx,summ):
+        dp = []
+        for i in range(len(nums)):
+            new_row = []
+            for j in range(summ + 1):
+                new_row.append(False)
+            dp.append(new_row)
             
-            if summ == 0:
-                
-                return True
+        for i in range(len(nums)):
+            dp[i][0] = True
             
-            if idx >= len(nums):
-                return False
-            
-            if summ < 0: return False
-            
-            return rec(idx + 1, summ - nums[idx]) or rec(idx + 1, summ)        
+        for i in range(summ + 1):
+            if nums[0] == i:
+                dp[0][nums[0]] = True
         
-        return rec(0,summ)
+        for i in range(1,len(nums)):
+            for j in range(summ + 1):
+                if nums[i] > j:
+                    dp[i][j] = dp[i-1][j]
+                else:
+                    dp[i][j] = dp[i-1][j] or dp[i-1][j - nums[i]]    
+            
+        return dp[-1][-1]
+        
