@@ -13,9 +13,9 @@ class Solution:
         for i in range(len(nums)):
             dp[i][0] = True
             
-        for i in range(summ + 1):
-            if nums[0] == i:
-                dp[0][nums[0]] = True
+        if nums[0] <= summ:
+            
+            dp[0][nums[0]] = True
         
         for i in range(1,len(nums)):
             for j in range(summ + 1):
