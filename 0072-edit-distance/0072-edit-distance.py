@@ -1,20 +1,20 @@
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
         
-        dp  = [[0]*(len(word1) + 1) for _ in range(len(word2) + 1)]
-        
-        for i in range(len(dp)):
-            for j in range(len(dp[i])):
-                if j == 0:
-                    dp[i][j] = i
-                if i == 0:
-                    dp[i][j] = j
-                    
-        for idx2 in range(1,len(dp)):
-            for idx1 in range(1,len(dp[i])):
-                if word1[idx1 - 1] == word2[idx2 - 1]:
-                    dp[idx2][idx1] = dp[idx2 - 1][idx1 - 1]
+       
+        memo = {}
+        def dp(i,j):
+            if i == len(word1):
+                return len(word2)-j
+            if j == len(word2):
+                return len(word1)-i
+            if (i,j) not in memo:
+                if word1[i] == word2[j]:
+                    memo[(i,j)] = dp(i+1,j+1)
                 else:
-                    dp[idx2][idx1] =  1 + min(dp[idx2-1][idx1-1],dp[idx2-1][idx1],dp[idx2][idx1-1])
-        return dp[-1][-1]
-    
+                    replace = dp(i+1,j+1)
+                    delete = dp(i+1,j)
+                    insert = dp(i,j+1)
+                    memo[(i,j)] = 1+min(replace,delete,insert)
+            return memo[(i,j)]
+        return dp(0,0)
