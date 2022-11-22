@@ -1,13 +1,20 @@
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
-        @cache
-        def rec(idx1, idx2):
-            if idx1 == 0 :
-                return idx2
-            if idx2 == 0:
-                return idx1
-            if word1[idx1 - 1] == word2[idx2 - 1]:
-                return rec(idx1 - 1,idx2 - 1)
-            return 1 + min(rec(idx1 -1,idx2 - 1),rec(idx1 - 1,idx2),rec(idx1,idx2-1))
-        return rec(len(word1),len(word2))
+        
+        dp  = [[0]*(len(word1) + 1) for _ in range(len(word2) + 1)]
+        
+        for i in range(len(dp)):
+            for j in range(len(dp[i])):
+                if j == 0:
+                    dp[i][j] = i
+                if i == 0:
+                    dp[i][j] = j
+                    
+        for idx2 in range(1,len(dp)):
+            for idx1 in range(1,len(dp[i])):
+                if word1[idx1 - 1] == word2[idx2 - 1]:
+                    dp[idx2][idx1] = dp[idx2 - 1][idx1 - 1]
+                else:
+                    dp[idx2][idx1] =  1 + min(dp[idx2-1][idx1-1],dp[idx2-1][idx1],dp[idx2][idx1-1])
+        return dp[-1][-1]
     
