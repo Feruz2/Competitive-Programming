@@ -7,8 +7,7 @@ class Solution:
         @cache
         def rec(idx,sofar):
 
-            # if sofar == 0:
-            #     return 1
+            
             if sofar < 0:
                 return float("inf")
             if idx <= 0:
