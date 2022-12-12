@@ -1,13 +1,18 @@
 class Solution:
     def longestPalindromeSubseq(self, s: str) -> int:
-        @cache
-        def rec(idx1, idx2):
-            if idx1 == idx2:
-                return 1
-            if idx1 > idx2:
-                return 0
-            if s[idx1] == s[idx2]:
-                return 2 + rec(idx1 + 1,idx2 - 1)
-            return max(rec(idx1 + 1, idx2), rec(idx1, idx2 - 1))
-        return rec(0,len(s) - 1)
-            
+        t = s[::-1]
+        dp = []
+        for i in range(len(s)+1):
+            n = []
+            for j in range(len(s)+1):
+                n.append(0)
+            dp.append(n)
+        for idx1 in range(len(s) - 1, -1, -1):
+            for idx2 in range(len(s) - 1,-1,-1):
+               
+                if s[idx1] == t[idx2]:
+                    dp[idx1][idx2] = 1 + dp[idx1 + 1][idx2 + 1]
+                else:        
+                    dp[idx1][idx2] = max(dp[idx1 + 1][idx2], dp[idx1][idx2 + 1])
+        return dp[0][0]
+                    
