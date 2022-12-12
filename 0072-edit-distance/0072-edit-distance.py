@@ -1,20 +1,19 @@
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
-        
-       
-        memo = {}
-        def dp(i,j):
+        @cache
+        def rec(i,j):
+            if i == len(word1) and j == len(word2):
+                return 0
             if i == len(word1):
-                return len(word2)-j
+                return len(word2) - j
             if j == len(word2):
-                return len(word1)-i
-            if (i,j) not in memo:
-                if word1[i] == word2[j]:
-                    memo[(i,j)] = dp(i+1,j+1)
-                else:
-                    replace = dp(i+1,j+1)
-                    delete = dp(i+1,j)
-                    insert = dp(i,j+1)
-                    memo[(i,j)] = 1+min(replace,delete,insert)
-            return memo[(i,j)]
-        return dp(0,0)
+                return len(word1) - i
+            if word1[i] == word2[j]:
+                return rec(i + 1, j + 1)
+            delete = 1 + rec(i + 1,j)
+            insert = 1 + rec(i, j + 1)
+            replace = 1 + rec(i + 1, j+1)
+            return min(delete,insert,replace)
+        return rec(0,0)
+       
+        
