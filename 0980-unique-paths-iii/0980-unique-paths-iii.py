@@ -6,12 +6,12 @@ class Solution:
         self.total = 0
         visit = set()
         def dfs(row,col,cnt):
-            print(row,col)
+            
             if grid[row][col] == 2 and cnt == self.total:
                 self.ans += 1
                 return 
             if grid[row][col] == 2:
-                print(cnt)
+                
                 return 
             if  grid[row][col] == -1: 
                 return
