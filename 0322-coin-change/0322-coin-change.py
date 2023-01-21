@@ -10,7 +10,7 @@ class Solution:
             
             if sofar < 0:
                 return float("inf")
-            if idx <= 0:
+            if idx == 0:
                 
                 if sofar % coins[idx] == 0:
                     return ((sofar) // coins[idx])
