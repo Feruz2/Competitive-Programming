@@ -42,7 +42,7 @@ class Solution:
                 col_pre[j][i] = cnt
                      
         final = []
-        # print(pre,col_pre)
+
         for i in range(len(mat)):
             lst = []
             for j in range(len(mat[0])):
