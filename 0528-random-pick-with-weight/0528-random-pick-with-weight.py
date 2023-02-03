@@ -7,16 +7,16 @@ class Solution:
 
     def pickIndex(self) -> int:
         n = random.randint(1, self.w[-1])
-        lo, hi = 0, len(self.w) - 1
-        while lo < hi:
-            mid = lo + (hi-lo) // 2
+        l, r = 0, len(self.w) - 1
+        while l < r:
+            mid = l + (r-l) // 2
             if self.w[mid] == n:
                 return mid
             if self.w[mid] < n:
-                lo = mid + 1
+                l = mid + 1
             else:
-                hi = mid
-        return hi
+                r = mid
+        return r
 
     # Your Solution object will be instantiated and called as such:
     # obj = Solution(w)
