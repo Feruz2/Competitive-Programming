@@ -7,7 +7,7 @@ class Solution:
         for val in sp:
             if val != '':
                 path.append(val)
-        print(path)
+       
         for ch in path:
             if ch == '..':
                 if s:
