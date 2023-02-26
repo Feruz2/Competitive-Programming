@@ -1,30 +1,34 @@
 class Solution:
     def maximumGain(self, s: str, x: int, y: int) -> int:
-        x_string = 'ab'
-        y_string = 'ba'
-
-        if x < y:
-            x,y = y,x
-            x_string,y_string = y_string,x_string
-
         stack = []
         points = 0
 
-        for i in range(len(s)):
-            if stack and stack[-1] + s[i] == x_string:
+        if x > y:
+            remove_first = "ab"
+            remove_next = "ba"
+        else:
+            remove_first = "ba"
+            remove_next = "ab"
+
+        # The first Iteration
+        for char in s:
+            stack.append(char)
+
+            if len(stack) > 1 and stack[-2] + stack[-1] == remove_first:
                 stack.pop()
-                points += x
-                continue
+                stack.pop()
 
-            stack.append(s[i])
+                points += max(x, y)
 
+        # The second Iteration
         stack2 = []
-        for i in range(len(stack)):
-            if stack2 and stack2[-1] + stack[i] == y_string:
-                stack2.pop()
-                points += y
-                continue
+        for char in stack:
+            stack2.append(char)
 
-            stack2.append(stack[i])
+            if len(stack2) > 1 and stack2[-2] + stack2[-1] == remove_next:
+                stack2.pop()
+                stack2.pop()
+
+                points += min(x, y)
 
         return points
