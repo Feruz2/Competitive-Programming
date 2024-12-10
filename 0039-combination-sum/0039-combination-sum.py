@@ -7,23 +7,18 @@ class Solution(object):
         """
         ans = []
         def fun(lst, summ, idx):
-            # print(lst, summ, idx)
+            
             if summ == target:
                 ans.append(lst[:])
-                # print(ans,lst, "in")
-                return ans
+                return
             
             if idx >= len(candidates) or summ > target:
                 return
             
-            
             lst.append(candidates[idx])
-            summ += candidates[idx]
-            fun(lst, summ, idx)
+            fun(lst, summ + candidates[idx], idx)
             
-            summ -= candidates[idx]
             lst.pop()
-            
             fun(lst, summ, idx + 1)
         
         
