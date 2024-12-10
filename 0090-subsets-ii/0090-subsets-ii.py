@@ -4,24 +4,16 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        
-        sett = set()
+        res = [[]]
         nums.sort()
-        ans = []
-        def fun(lst, idx):
-            if idx >= len(nums):
-                sett.add(tuple(lst))
-                return  
-            lst.append(nums[idx])
-            fun(lst, idx + 1)
-            
-            lst.pop()
-            fun(lst, idx + 1)
-        
-        
-        fun([], 0)
-        
-        for elt in sett:
-            ans.append(list(elt))
-        return ans
-        
+        hashmap = defaultdict(int)
+        for i in range(len(nums)):
+            start = 0
+            if i > 0 and nums[i] == nums[i - 1]:
+                start = hashmap[nums[i]]
+            num = len(res)
+            for j in range(start, len(res)):
+                res.append(res[j] + [nums[i]])
+            hashmap[nums[i]] += (len(res) - num) 
+        return res
+                
