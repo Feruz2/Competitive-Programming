@@ -17,21 +17,16 @@ class Solution(object):
             return True
         
         def rec(lst, idx, s):
-            print(lst, idx)
+           
             if idx >= len(s):
-               
                 ans.append(lst[:])
-                
                 return
             
             for i in range(idx, len(s)):
                 
                 if is_palindrom(idx, i, s):
-                    
-                    rec(lst + [s[idx: i+1]] ,i + 1, s )
-                    
-                   
-                    
+                    rec(lst + [s[idx: i+1]], i + 1, s )
+                      
   
         rec([], 0, s)
         return ans
