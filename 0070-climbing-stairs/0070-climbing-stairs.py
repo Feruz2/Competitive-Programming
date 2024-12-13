@@ -4,16 +4,9 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        dp = defaultdict()
-        def rec(n):
-            if n in dp:
-                return dp[n]
-            if n == 0:
-                return 1
-            if n < 0:
-                return 0
-                
-            dp[n] = rec(n - 1) + rec(n - 2)
-            return dp[n]
-        
-        return rec(n)
+
+        dp = [0, 1]
+        for i in range(1, n + 1):
+            nextt = dp[-1] + dp[-2]
+            dp.append(nextt)
+        return dp[-1]
