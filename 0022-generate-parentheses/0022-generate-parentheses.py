@@ -6,14 +6,16 @@ class Solution(object):
         """
         ans = []
         def rec(countOpen, countClose, n, st):
-            if countClose > countOpen:
-                return
+            
             if countClose + countOpen == n:
-                if countClose == countOpen:
-                    ans.append(st)
+                ans.append(st)
                 return
-            rec(countOpen + 1, countClose, n, st + '(')
-            rec(countOpen, countClose + 1, n, st + ')')
+            
+            if countOpen < n // 2:
+                rec(countOpen + 1, countClose, n, st + '(')
+                
+            if countClose < countOpen:
+                rec(countOpen, countClose + 1, n, st + ')')
         
         rec(0, 0, n * 2 ,'')
         return ans
