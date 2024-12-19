@@ -11,16 +11,16 @@ class Solution(object):
             if idx in dp:
                 return dp[idx]
             
-            if idx == len(nums) - 1:
+            if idx == 0:
                 return nums[idx]
             
-            if idx >=  len(nums):
+            if idx < 0:
                 return 0 
             
             
-            ans = max(rec(idx + 2, summ) + nums[idx] , rec(idx + 1, summ))
+            ans = max(rec(idx - 2, summ) + nums[idx] , rec(idx - 1, summ))
             
             dp[idx]  = ans
             return dp[idx]
         
-        return rec(0,0)
+        return rec(len(nums) - 1,0)
