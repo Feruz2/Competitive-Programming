@@ -4,31 +4,18 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        if len(nums) == 1:
+        if len(nums) ==  1:
             return nums[0]
         
-        def rec(idx, summ, arr, dp):
-            
-            if idx in dp:
-                return dp[idx]
-            
-            if idx == len(arr) - 1:
-                return arr[idx]
-            
-            if idx >=  len(arr):
-                return 0
-            
-            ans = 0
-            for i in range(idx + 2, len(arr)):
-                summ += arr[i]
-                ans = max(ans, rec(i, summ, arr, dp))
-                summ -= arr[i]
-            dp[idx]  = ans + arr[idx]
-            return dp[idx]
+        def bottom_up(arr):
+            dp = []
+            dp.append(arr[0])
+            for i in range(1, len(arr)):
+                not_take = dp[i - 1]
+                take = arr[i]
+                if i > 1: take += dp [i - 2]
+                dp.append(max(take, not_take))
+            return dp[-1]
         
-        with_zero_index = rec(0, 0, nums[:-1], defaultdict())
-        with_one_index = rec(1, 0, nums, defaultdict())
-        with_zero_last = rec(0, 0, nums[1:], defaultdict())
-        with_one_last = rec(1, 0, nums[1:], defaultdict())
-        # print(with_zero_index, with_one_index, with_zero_last, with_one_last)
-        return max(with_zero_index, with_one_index, with_zero_last, with_one_last)
+        return max(bottom_up(nums[:-1]), bottom_up(nums[1:]))
+        
