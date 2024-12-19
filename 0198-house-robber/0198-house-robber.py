@@ -7,7 +7,7 @@ class Solution(object):
        
         dp = defaultdict()
         def rec(idx, summ):
-            # print(idx, summ)
+            
             if idx in dp:
                 return dp[idx]
             
@@ -19,7 +19,7 @@ class Solution(object):
             
             
             ans = max(rec(idx + 2, summ) + nums[idx] , rec(idx + 1, summ))
-            # print(ans)
+            
             dp[idx]  = ans
             return dp[idx]
         
