@@ -23,4 +23,4 @@ class Solution(object):
             dp[idx]  = ans
             return dp[idx]
         
-        return max(rec(0, 0), rec(1,0))
+        return rec(0,0)
