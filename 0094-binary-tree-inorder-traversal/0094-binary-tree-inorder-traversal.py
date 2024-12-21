@@ -13,7 +13,7 @@ class Solution(object):
         ans = []
         node = root
         while node:
-            # print(node.val)
+            
             curr = node
             nextt = node.left
             if node.left:
@@ -21,7 +21,7 @@ class Solution(object):
                 node.left = None
                 while curr.right:
                     curr = curr.right 
-            # print(curr.val)
+            
             if curr == node:
                 ans.append(curr.val)
                 node = curr.right
