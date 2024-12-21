@@ -11,14 +11,21 @@ class Solution(object):
         :rtype: List[int]
         """
         ans = []
-        def rec(node):
-            if node == None:
-                return None
-            
-            left = rec(node.left)
-            ans.append(node.val)
-            right = rec(node.right)
-        
-        
-        rec(root)
+        node = root
+        while node:
+            # print(node.val)
+            curr = node
+            nextt = node.left
+            if node.left:
+                curr = curr.left
+                node.left = None
+                while curr.right:
+                    curr = curr.right 
+            # print(curr.val)
+            if curr == node:
+                ans.append(curr.val)
+                node = curr.right
+                continue
+            curr.right = node
+            node = nextt or node.right
         return ans
