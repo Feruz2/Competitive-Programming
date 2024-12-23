@@ -9,14 +9,14 @@ class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
         
         def rec(node):
-            # print(node)
+            
             if not node:
                 return 0
             if node == target:
                 return 1
             
             hasTarget = rec(node.left)
-            # print(hasTarget)
+           
             if hasTarget > 0:
                 steps = k - hasTarget
                 if steps == 0: 
@@ -24,18 +24,19 @@ class Solution:
                 else:
                     BFS(node.right, steps - 1)
                 
-                # print(node, hasTarget)
+                
                 return hasTarget + 1
             
             hasTarget = rec(node.right)
             if hasTarget > 0:
+                
                 steps = k - hasTarget
                 if steps == 0: 
                     ans.append(node.val)
                 else:
                     BFS(node.left, steps - 1)
                 
-                # print(node, hasTarget)
+                
                 return hasTarget + 1
             return 0
         
