@@ -19,11 +19,7 @@ class Solution:
                 return None
             
             if node.left:
-                rec(node.left, ans)
-                # turn[0] += 1
-#                 if turn[0] == k:
-                
-#                     ans[0] = node.val
+                rec(node.left, ans)              
                 
             turn[0] += 1
             if turn[0] == k:
@@ -31,10 +27,7 @@ class Solution:
             
             if node.right:
                 rec(node.right, ans)
-                # turn[0] += 1
-#                 if turn[0] == k:
-                    
-#                     ans[0] = node.val
+
         if not root.left and not root.right:
             return root.val
         rec(root, ans)
