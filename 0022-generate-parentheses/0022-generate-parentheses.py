@@ -1,21 +1,15 @@
-class Solution(object):
-    def generateParenthesis(self, n):
-        """
-        :type n: int
-        :rtype: List[str]
-        """
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
         ans = []
-        def rec(countOpen, countClose, n, st):
-            
-            if countClose + countOpen == n:
-                ans.append(st)
+        def rec(st, opened, closed):
+            if opened + closed == (n * 2):
+                if opened == closed: ans.append(st)
                 return
-            
-            if countOpen < n // 2:
-                rec(countOpen + 1, countClose, n, st + '(')
-                
-            if countClose < countOpen:
-                rec(countOpen, countClose + 1, n, st + ')')
+            if opened > closed:
+                rec(st + "(", opened + 1, closed)
+                rec(st + ")", opened, closed + 1)
+            else:
+                rec(st + "(", opened + 1, closed)
         
-        rec(0, 0, n * 2 ,'')
+        rec("", 0, 0)
         return ans
