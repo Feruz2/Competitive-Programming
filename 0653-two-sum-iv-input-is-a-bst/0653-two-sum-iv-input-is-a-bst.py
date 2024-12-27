@@ -5,28 +5,68 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    def findnext(self, nextt):
+            if nextt:
+                num = nextt.pop()
+                if num.right:
+                    node = num.right
+                    nextt.append(node)
+                    while node:
+                        if node.left:
+                            node = node.left
+                            nextt.append(node)
+                        else:
+                            break
+
+                return num.val
+    def findprev(self, prev):
+            if prev:
+                num = prev.pop()
+                if num.left:
+                    node = num.left
+                    prev.append(node)
+                    while node:
+                        if node.right:
+                            node = node.right
+                            prev.append(node)
+                        else:
+                            break
+                return num.val
+        
+        
+
     def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
-        ans = []
-        st = []
+        nextt = [root]
         node = root
-        while st or node:
-            while node:
-                st.append(node)
+        
+        while node:
+            if node.left:
                 node = node.left
-            curr = st.pop()
-            ans.append(curr.val)
-            node = curr.right
-        l = 0
-        r = len(ans) - 1
-        while l < r:
-            curr = ans[l] + ans[r]
-            if curr == k:
-                return True
-            if curr > k:
-                r -= 1
+                nextt.append(node)
             else:
-                l += 1
+                break
+        
+        prev = [root]
+        node = root
+        while node:
+            if node.right:
+                node = node.right
+                prev.append(node)
+                
+            else:
+                break
+        left = self.findnext(nextt)
+        right = self.findprev(prev)
+        
+        while left != right:
+            if left + right == k: 
+                return True
+            elif left + right > k:
+                right = self.findprev(prev)
+            else:
+                left = self.findnext(nextt)
+                
         return False
             
-            
+        
         
